@@ -2,6 +2,9 @@ package com.javarush.task.task35.task3513;
 
 import java.awt.*;
 
+/**
+ * Tile class
+ */
 public class Tile {
     int value;
 

@@ -3,6 +3,9 @@ package com.javarush.task.task35.task3513;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * Controller class - handler of key press
+ */
 public class Controller extends KeyAdapter{
 
     Model model;

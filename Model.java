@@ -2,8 +2,14 @@ package com.javarush.task.task35.task3513;
 
 import java.util.*;
 
+/**
+ * Model class
+ */
 public class Model {
 
+    /**
+     * size of field
+     */
     private static final int FIELD_WIDTH = 4;
     private Tile[][] gameTiles;
     int score = 0;
@@ -20,6 +26,9 @@ public class Model {
         return gameTiles;
     }
 
+    /**
+     * Reset game
+     */
     public void resetGameTiles() {
         this.gameTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
         for (int i = 0; i < gameTiles.length; i++) {
@@ -31,6 +40,9 @@ public class Model {
         addTile();
     }
 
+    /**
+     * Add new tile in random position on field
+     */
     private void addTile() {
         List<Tile> listForChanges = getEmptyTiles();
         if (listForChanges != null && listForChanges.size() != 0) {
@@ -39,6 +51,9 @@ public class Model {
         }
     }
 
+    /**
+     * @return List of empty tiles
+     */
     private List<Tile> getEmptyTiles() {
         List<Tile> emptyTileList = new ArrayList<>();
         for (int i = 0; i < gameTiles.length; i++) {
@@ -51,6 +66,11 @@ public class Model {
         return emptyTileList;
     }
 
+    /**
+     * Compress tile when we move to left
+     * @param tiles - array of tiles
+     * @return - changed array of tiles
+     */
     private boolean compressTiles(Tile[] tiles) {
         boolean changes = false;
         for (int i = 0; i < tiles.length; i++) {
@@ -65,6 +85,11 @@ public class Model {
         return changes;
     }
 
+    /**
+     * Merge tile when we move to left
+     * @param tiles - array of tiles
+     * @return - changed array of tiles
+     */
     private boolean mergeTiles(Tile[] tiles) {
         boolean changes = false;
         for (int i = 0; i < tiles.length - 1; i++) {
@@ -82,6 +107,9 @@ public class Model {
         return changes;
     }
 
+    /**
+     * Handle move to left
+     */
     public void left() {
         if (isSaveNeeded) {
             saveState(this.gameTiles);
@@ -96,6 +124,13 @@ public class Model {
         if (isChanged) addTile();
     }
 
+    /**
+     * We have handle for move to left
+     * If we want move to right we should:
+     * 1. rotate 2x times our matrix
+     * 2. move to left
+     * 3. rotate 2x times our matrix
+     */
     public void right() {
         saveState(this.gameTiles);
         rotate();
@@ -123,6 +158,9 @@ public class Model {
         rotate();
     }
 
+    /**
+     * Rotate our matrix for move to another sides
+     */
     public void rotate() {
         for (int k = 0; k < 2; k++) {
             for (int j = k; j < 3 - k; j++) {
@@ -135,6 +173,10 @@ public class Model {
         }
     }
 
+    /**
+     * Check can we move or no
+     * @return boolean
+     */
     public boolean canMove() {
         if (!getEmptyTiles().isEmpty()) {
             return true;
@@ -169,6 +211,9 @@ public class Model {
         isSaveNeeded = false;
     }
 
+    /**
+     * Rollback method
+     */
     public void rollback() {
         if (!previousStates.isEmpty()) {
             gameTiles = (Tile[][]) previousStates.pop();

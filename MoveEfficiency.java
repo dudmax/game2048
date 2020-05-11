@@ -1,5 +1,9 @@
 package com.javarush.task.task35.task3513;
 
+/**
+ * Try to developer a robot who will play in game automatically
+ * For this reason write this class which compare Efficiency of robot's move
+ */
 public class MoveEfficiency implements Comparable<MoveEfficiency> {
     private int numberOfEmptyTiles;
     private int score;
